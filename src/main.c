@@ -41,6 +41,8 @@ coroutine static void https_listener(tcpsock ls, int used_port);
 static const char *socks5_host = NULL;
 static int socks5_port = 1080;
 
+static int HTTP_PORT = 80;
+static int HTTPS_PORT = 443;
 
 int main(int argc, char **argv)
 {
@@ -114,64 +116,64 @@ int main(int argc, char **argv)
 #endif
 
     // listen http
-    ipaddr addr = iplocal(host, 80, 0);
+    ipaddr addr = iplocal(host, HTTP_Port, 0);
     tcpsock http_ls = tcplisten(addr, 32);
     if (http_ls == NULL)
     {
         ERROR("listen");
         return EXIT_FAILURE;
     }
-    LOG("listen on %s:%d", host, 80);
+    LOG("listen on %s:%d", host, HTTP_PORT);
     
     //listen tls
-    addr = iplocal(host, 443, 0);
+    addr = iplocal(host, HTTPS_PORT, 0);
     tcpsock https_ls = tcplisten(addr, 32);
     if (https_ls == NULL)
     {
         ERROR("listen");
         return EXIT_FAILURE;
     }
-    LOG("listen on %s:%d", host, 443);
+    LOG("listen on %s:%d", host, HTTPS_PORT);
     
     //listen imap
-    addr = iplocal(host, 993, 0);
-    tcpsock imap_ls = tcplisten(addr, 32);
-    if (imap_ls == NULL)
-    {
-        ERROR("listen");
-        return EXIT_FAILURE;
-    }
-    LOG("listen on %s:%d", host, 993);
+//    addr = iplocal(host, 993, 0);
+//    tcpsock imap_ls = tcplisten(addr, 32);
+//    if (imap_ls == NULL)
+//    {
+//        ERROR("listen");
+//        return EXIT_FAILURE;
+//    }
+//    LOG("listen on %s:%d", host, 993);
     
     //listen pop3
-    addr = iplocal(host, 995, 0);
-    tcpsock pop3_ls = tcplisten(addr, 32);
-    if (pop3_ls == NULL)
-    {
-        ERROR("listen");
-        return EXIT_FAILURE;
-    }
-    LOG("listen on %s:%d", host, 995);
+//    addr = iplocal(host, 995, 0);
+//    tcpsock pop3_ls = tcplisten(addr, 32);
+//    if (pop3_ls == NULL)
+//    {
+//        ERROR("listen");
+//        return EXIT_FAILURE;
+//    }
+//    LOG("listen on %s:%d", host, 995);
     
     //listen smtp
-    addr = iplocal(host, 465, 0);
-    tcpsock smtp_ls = tcplisten(addr, 32);
-    if (smtp_ls == NULL)
-    {
-        ERROR("listen");
-        return EXIT_FAILURE;
-    }
-    LOG("listen on %s:%d", host, 465);
+//    addr = iplocal(host, 465, 0);
+//    tcpsock smtp_ls = tcplisten(addr, 32);
+//    if (smtp_ls == NULL)
+//    {
+//        ERROR("listen");
+//        return EXIT_FAILURE;
+//    }
+//    LOG("listen on %s:%d", host, 465);
     
     //listen smtp2
-    addr = iplocal(host, 587, 0);
-    tcpsock smtp2_ls = tcplisten(addr, 32);
-    if (smtp2_ls == NULL)
-    {
-        ERROR("listen");
-        return EXIT_FAILURE;
-    }
-    LOG("listen on %s:%d", host, 587);
+//    addr = iplocal(host, 587, 0);
+//    tcpsock smtp2_ls = tcplisten(addr, 32);
+//    if (smtp2_ls == NULL)
+//    {
+//        ERROR("listen");
+//        return EXIT_FAILURE;
+//    }
+//    LOG("listen on %s:%d", host, 587);
 
     //check socks 
     if (socks5_host != NULL)
